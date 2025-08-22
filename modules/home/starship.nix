@@ -1,7 +1,7 @@
-{ trilby, ... }:
+{ trilby, lib, ... }:
 
 {
-  programs.starship = {
+  programs.starship = lib.mkDefault {
     enable = true;
     enableZshIntegration = true;
     settings = {

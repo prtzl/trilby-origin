@@ -12,7 +12,7 @@
   ];
 
   programs.zsh =
-    lib.mkDefault {
+    lib.makeAllMkDefault {
       enable = true;
       autocd = true;
 

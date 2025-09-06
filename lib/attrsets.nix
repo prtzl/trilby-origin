@@ -50,4 +50,17 @@ with lib;
 
   # Concats a list of attrsets into a single attrset, updating them recursively.
   recursiveConcat = foldr recursiveUpdate { };
+
+  makeAllMkDefault =
+    let
+      skipKeys = [ "imports" "options" "config" "_module" ];
+    in
+      lib.mapAttrsRecursiveCond
+    (v: !(lib.isAttrs v))
+    (path: v:
+      if lib.elem (lib.last path) skipKeys then
+        v
+      else
+        lib.mkDefault v
+    );
 }

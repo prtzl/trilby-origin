@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
-  programs.firefox = {
+  programs.firefox = lib.makeAllMkDefault {
     enable = true;
     package = pkgs.firefox-devedition;
   };

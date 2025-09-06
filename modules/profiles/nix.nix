@@ -6,10 +6,10 @@
   ];
 
   nix = lib.mkMerge [
-    {
+    (lib.makeAllMkDefault {
       monitored = {
-        enable = lib.mkDefault true;
-        package = lib.mkDefault (pkgs.unstable.nix-monitored.override {
+        enable = true;
+        package = (pkgs.unstable.nix-monitored.override {
           nix = pkgs.unstable.nixVersions.latest;
         });
       };
@@ -37,16 +37,16 @@
         "nixpkgs=${trilby.nixpkgs.outPath}"
         "trilby=${inputs.self.outPath}"
       ];
-    }
+    })
 
-    (lib.optionalAttrs (trilby.hostSystem.kernel.name == "linux") {
+    (lib.optionalAttrs (trilby.hostSystem.kernel.name == "linux") (lib.makeAllMkDefault {
       channel.enable = false;
       gc.dates = "monthly";
-    })
+    }))
 
-    (lib.optionalAttrs (trilby.hostSystem.kernel.name == "darwin") {
+    (lib.optionalAttrs (trilby.hostSystem.kernel.name == "darwin") (lib.makeAllMkDefault {
       gc.interval.Day = 1;
       useDaemon = true;
-    })
+    }))
   ];
 }

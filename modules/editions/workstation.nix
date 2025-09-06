@@ -1,4 +1,4 @@
-{ trilby, lib, pkgs, ... }:
+{ trilby, lib, pkgs, defaultDesktop ? true, ... }:
 
 {
   imports = with trilby.inputs.self.nixosModules; [
@@ -6,13 +6,11 @@
     profiles.firefox
     profiles.fonts
     profiles.geoclue
-    profiles.gnome
     profiles.libreoffice
     profiles.mimetypes
     profiles.pipewire
-    profiles.sway
     profiles.virtualisation
-  ];
+  ] ++ lib.optionals defaultDesktop (with trilby.inputs.self.nixosModules; [profiles.gnome profiles.sway]);
 
   services = {
     blueman.enable = true;

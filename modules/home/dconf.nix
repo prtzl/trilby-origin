@@ -5,7 +5,7 @@ let
   inherit (lib) mkDefault;
 in
 {
-  dconf = {
+  dconf = lib.makeAllMkDefault {
     enable = true;
     settings =
       lib.dconfFlattenWith mkDefault

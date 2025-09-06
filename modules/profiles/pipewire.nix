@@ -1,7 +1,7 @@
 { trilby, lib, ... }:
 
 {
-  services.pipewire = {
+  services.pipewire = lib.makeAllMkDefault {
     enable = true;
     alsa = {
       enable = true;
